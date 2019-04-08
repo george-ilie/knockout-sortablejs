@@ -72,7 +72,7 @@
                         // All of the bindings on the parent element
                         bindings = ko.utils.peekObservable(parentBindings()),
                         // The binding options for the draggable/sortable binding of the parent element
-                        bindingHandlerBinding = bindings.sortable || bindings.draggable,
+                        bindingHandlerBinding = bindings.sortablejs || bindings.draggablejs,
                         // The collection that we should modify
                         collection = bindingHandlerBinding.collection || bindingHandlerBinding.foreach;
                     if (handler)
@@ -211,28 +211,28 @@
         return merge(options, unwrappedOptions);
     };
 
-    ko.bindingHandlers.draggable = {
+    ko.bindingHandlers.draggablejs = {
         sortableOptions: {
             group: { pull: 'clone', put: false },
             sort: false
         },
         init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-            return init(element, valueAccessor, allBindings, viewModel, bindingContext, ko.bindingHandlers.draggable.sortableOptions);
+            return init(element, valueAccessor, allBindings, viewModel, bindingContext, ko.bindingHandlers.draggablejs.sortableOptions);
         },
         update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-            return update(element, valueAccessor, allBindings, viewModel, bindingContext, ko.bindingHandlers.draggable.sortableOptions);
+            return update(element, valueAccessor, allBindings, viewModel, bindingContext, ko.bindingHandlers.draggablejs.sortableOptions);
         }
     };
 
-    ko.bindingHandlers.sortable = {
+    ko.bindingHandlers.sortablejs = {
         sortableOptions: {
             group: { pull: true, put: true }
         },
         init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-            return init(element, valueAccessor, allBindings, viewModel, bindingContext, ko.bindingHandlers.sortable.sortableOptions);
+            return init(element, valueAccessor, allBindings, viewModel, bindingContext, ko.bindingHandlers.sortablejs.sortableOptions);
         },
         update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-            return update(element, valueAccessor, allBindings, viewModel, bindingContext, ko.bindingHandlers.sortable.sortableOptions);
+            return update(element, valueAccessor, allBindings, viewModel, bindingContext, ko.bindingHandlers.sortablejs.sortableOptions);
         }
     };
 });
