@@ -119,7 +119,7 @@
                     var removeOperation = currentOperation.event.type === 'remove' ? currentOperation : existingOperation,
                         addOperation = currentOperation.event.type === 'add' ? currentOperation : existingOperation;
 
-                    moveItem(itemVM, removeOperation.collection, addOperation.collection, addOperation.event.clone, addOperation.event);
+                    moveItem(itemVM, removeOperation.collection, addOperation.collection, false, addOperation.event);
                 }
             },
             // Moves an item from the "from" collection to the "to" collection, these
