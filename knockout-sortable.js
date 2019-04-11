@@ -139,7 +139,7 @@
                 // has an actual index of 5.
                 if (e.item.previousElementSibling) {
 					newIndex = to().indexOf(ko.dataFor(e.item.previousElementSibling));
-					newIndex += newIndex > originalIndex ? 0 : 1;
+					newIndex += newIndex > originalIndex && from() === to() ? 0 : 1;
                 }
 
                 // Remove sortables "unbound" element
