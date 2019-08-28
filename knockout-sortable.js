@@ -82,12 +82,8 @@
                 }.bind(undefined, e, viewModel, allBindings, options[e]);
         });
 
-        var sortableElement = Sortable.create(element, options);
+        Sortable.create(element, options);
 
-        // Destroy the sortable if knockout disposes the element it's connected to
-        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-            sortableElement.destroy();
-        });
         return ko.bindingHandlers.template.init(element, valueAccessor);
     },
     update = function (element, valueAccessor, allBindings, viewModel, bindingContext, sortableOptions) {
