@@ -67,6 +67,7 @@
         // the sortable, so define them in init instead of update
         ['onStart', 'onEnd', 'onRemove', 'onAdd', 'onUpdate', 'onSort', 'onFilter', 'onMove', 'onClone'].forEach(function (e) {
             if (options[e] || eventHandlers[e])
+                var _e = e;
                 options[e] = function (eventType, parentVM, parentBindings, handler, e) {
                     var itemVM = ko.dataFor(e.item),
                         // All of the bindings on the parent element
@@ -78,7 +79,7 @@
                     if (handler)
                         handler(e, itemVM, parentVM, collection, bindings);
                     if (eventHandlers[eventType])
-                        eventHandlers[eventType](e, itemVM, parentVM, collection, bindings);
+                        eventHandlers[eventType](element, e, itemVM, parentVM, collection, bindings);
                 }.bind(undefined, e, viewModel, allBindings, options[e]);
         });
 
@@ -96,7 +97,7 @@
     eventHandlers = (function (handlers) {
 
         var moveOperations = [],
-            tryMoveOperation = function (e, itemVM, parentVM, collection, parentBindings) {
+            tryMoveOperation = function (element, e, itemVM, parentVM, collection, parentBindings) {
                 // A move operation is the combination of a add and remove event,
                 // this is to make sure that we have both the target and origin collections
                 var currentOperation = { event: e, itemVM: itemVM, parentVM: parentVM, collection: collection, parentBindings: parentBindings },
@@ -164,11 +165,17 @@
 
         handlers.onRemove = tryMoveOperation;
         handlers.onAdd = tryMoveOperation;
-        handlers.onUpdate = function (e, itemVM, parentVM, collection, parentBindings) {
+        handlers.onUpdate = function (element, e, itemVM, parentVM, collection, parentBindings) {
             // This will be performed as a sort since the to/from collections
             // reference the same collection and clone is set to false
             moveItem(itemVM, collection, collection, false, e);
         };
+        handlers.onStart = function (element) {
+            element.classList.add('sortable-sorting');
+        }
+        handlers.onEnd = function(element) {
+            element.classList.remove('sortable-sorting');
+        }
 
         return handlers;
     })({}),
